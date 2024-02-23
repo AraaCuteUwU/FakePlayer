@@ -35,7 +35,7 @@ class PvPFakePlayerBehaviour implements FakePlayerBehaviour{
 	}
 
 	protected function isValidTarget(Player $player, Entity $entity) : bool{
-		return $entity !== $player && $entity instanceof Living && (!($entity instanceof Player) || ($entity->getGamemode()->equals(GameMode::SURVIVAL()) && $entity->isOnline()));
+		return $entity !== $player && $entity instanceof Living && (!($entity instanceof Player) || ($entity->getGamemode() === GameMode::SURVIVAL && $entity->isOnline()));
 	}
 
 	protected function getTargetEntity(Player $player) : ?Entity{
@@ -43,7 +43,7 @@ class PvPFakePlayerBehaviour implements FakePlayerBehaviour{
 	}
 
 	protected function setTargetEntity(?Entity $target) : void{
-		$this->target_entity_id = $target !== null ? $target->getId() : null;
+		$this->target_entity_id = $target?->getId();
 	}
 
 	public function onAddToPlayer(FakePlayer $player) : void{
